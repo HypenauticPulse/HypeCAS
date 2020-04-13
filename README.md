@@ -4,3 +4,4 @@
 
 Current functionality of HypeCAS:
   - Partially functioning polynomial interpreter. It currently converts a given polynomial into an array that contains 1x2 arrays formatted as [coefficient, exponent]. Specific cases are still being worked on.
+  - Polynomial addition.
