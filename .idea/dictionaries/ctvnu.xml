@@ -3,9 +3,11 @@
     <words>
       <w>coeff</w>
       <w>conspoly</w>
+      <w>polyarray</w>
       <w>polycon</w>
       <w>polyin</w>
       <w>polyop</w>
+      <w>tempstring</w>
     </words>
   </dictionary>
 </component>
