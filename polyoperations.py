@@ -62,6 +62,13 @@ def poly_poly_multiplication(poly1, poly2):
     return poly_sort(poly_consolidate(result))
 
 
+def poly_scalar_division(poly, scalar):
+    result = []
+    for i in poly:
+        result.append([i[0] / scalar, i[1]])
+    return poly_sort(poly_consolidate(result))
+
+
 def poly_poly_division(poly1, poly2):
     count = 0
     for i in poly2:
