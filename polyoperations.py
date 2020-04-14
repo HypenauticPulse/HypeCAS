@@ -6,20 +6,6 @@ def poly_consolidate(poly):
     return conspoly
 
 
-def poly_consolidate_neg(poly, length):
-    powers = {}
-    i = 0
-    for coeff, power in poly:
-        if i < length:
-            powers[power] = powers.get(power, 0) + coeff
-            i += 1
-        else:
-            powers[power] = powers.get(power, 0) - coeff
-            i += 1
-    conspoly = [[coeff, power] for power, coeff in powers.items()]
-    return conspoly
-
-
 def poly_degree(poly):
     degrees = []
     for i in poly:
@@ -55,7 +41,9 @@ def poly_addition(poly1, poly2):
 
 
 def poly_subtraction(poly1, poly2):
-    result = poly_sort(poly_consolidate_neg(poly1 + poly2, len(poly1)))
+    for i in range(len(poly2)):
+        poly2[i][0] = - poly2[i][0]
+    result = poly_sort(poly_consolidate(poly1 + poly2))
     return result
 
 
@@ -94,4 +82,3 @@ def poly_poly_division(poly1, poly2):
             remainder = poly_remove_zeros(remainder)
             i += 1
         return quotient, remainder
-
