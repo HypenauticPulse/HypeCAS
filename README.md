@@ -6,6 +6,6 @@ Current functionality of HypeCAS:
   - Polynomial interpreter. Converts a given polynomial into an array that contains 1x2 arrays formatted as [coefficient, exponent].
   - Convert coefficient-exponent arrays to standard polynomial form.
   - Combination of like terms.
-  - Polynomial addition, subtraction, multiplication (scalar and multiplication), division.
+  - Polynomial addition, subtraction, multiplication (scalar and polynomial), division (scalar and polynomial).
   - Degree finder.
   - Leading coefficient finder.
