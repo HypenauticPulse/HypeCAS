@@ -2,6 +2,10 @@
   <dictionary name="ctvnu">
     <words>
       <w>coeff</w>
+      <w>conspoly</w>
+      <w>polycon</w>
+      <w>polyin</w>
+      <w>polyop</w>
     </words>
   </dictionary>
 </component>

@@ -1,6 +1,6 @@
-from polyinput import *
-from polyconvert import *
-from polyoperations import *
+import polyinput as polyin
+import polyconvert as polycon
+import polyoperations as polyop
 
 
 print("Valid operations\n(1) Polynomial Addition\n(2) Polynomial Subtraction\n(3) Polynomial Multiplication\n(4) "
@@ -14,7 +14,7 @@ while True:
         break
 
 if choice == 1:
-    sum = poly_addition()
+    sum = polyop.poly_addition()
     print("Result:", sum)
 elif choice == 2:
     pass
@@ -23,10 +23,11 @@ elif choice == 3:
 elif choice == 4:
     pass
 else:
-    [eq, var] = get_input()
+    [eq, var] = polyin.get_input()
 
-    coeffPower = poly_conversion_array(eq, var)
+    coeffPower = polycon.poly_conversion_array(eq, var)
+    coeffPower = polyop.poly_consolidate(coeffPower)
 
     print("Converted Polynomial:", coeffPower)
-    polyString = poly_conversion_string(coeffPower)
+    polyString = polycon.poly_conversion_string(coeffPower)
     print("Polynomial string:", polyString)

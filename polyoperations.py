@@ -1,19 +1,26 @@
-from polyinput import get_input_dual
-from polyconvert import *
+import polyinput
+import polyconvert
+
+
+def poly_consolidate(poly):
+    powers = {}
+    for coeff, power in poly:
+        powers[power] = powers.get(power, 0) + coeff
+
+    conspoly = [[coeff, power] for power, coeff in powers.items()]
+
+    return conspoly
+
 
 def poly_addition():
-    [eq1, eq2, var] = get_input_dual()
-    coeffPower1 = poly_conversion_array(eq1, var)
-    coeffPower2 = poly_conversion_array(eq2, var)
-    result = []
+    [eq1, eq2, var] = polyinput.get_input_dual()
 
-    for i in coeffPower1:
-        found = 0
-        for j in coeffPower2:
-            if i[1] == j[1]:
-                result.append([i[0] + j[0], i[1]])
-                found = 1
-        if found == 0:
-            result.append(i)
+    coeffPower1 = polyconvert.poly_conversion_array(eq1, var)
+    coeffPower2 = polyconvert.poly_conversion_array(eq2, var)
 
-    return poly_conversion_string(result)
+    coeffPower1 = poly_consolidate(coeffPower1)
+    coeffPower2 = poly_consolidate(coeffPower2)
+
+    result = poly_consolidate(coeffPower1 + coeffPower2)
+
+    return polyconvert.poly_conversion_string(result)
