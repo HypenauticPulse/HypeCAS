@@ -14,8 +14,8 @@ class GenOperationWindow:
 
     def genwindow(self):
         def win_execute():
-            poly1 = polycon.poly_conversion_array(ent_first.get(), 'x')
-            poly2 = polycon.poly_conversion_array(ent_second.get(), 'x')
+            poly1 = polycon.poly_format(ent_first.get(), 'x')
+            poly2 = polycon.poly_format(ent_second.get(), 'x')
             result = self.operation(poly1, poly2)
             lbl_result["text"] = polycon.poly_conversion_string(result)
 
@@ -62,8 +62,8 @@ class GenOperationWindow:
 
     def gendivwindow(self):
         def win_execute():
-            poly1 = polycon.poly_conversion_array(ent_first.get(), 'x')
-            poly2 = polycon.poly_conversion_array(ent_second.get(), 'x')
+            poly1 = polycon.poly_format(ent_first.get(), 'x')
+            poly2 = polycon.poly_format(ent_second.get(), 'x')
             [quotient, remainder] = self.operation(poly1, poly2)
             if quotient == -1 and remainder == -1:
                 lbl_res_quotient["text"] = "Error, divisor is zero"
