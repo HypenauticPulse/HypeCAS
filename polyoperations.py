@@ -21,6 +21,13 @@ def poly_remove_zeros(poly):
     return poly
 
 
+def poly_pop_zeros(poly):
+    for i in range(len(poly)):
+        if poly[i] == [0, 0]:
+            poly.pop(i)
+    return poly
+
+
 def poly_sort(poly):
     return sorted(poly, key=lambda x: x[1], reverse=True)
 
@@ -79,11 +86,11 @@ def poly_poly_division(poly1, poly2):
     else:
         quotient = []
         remainder = poly1
-        divisorDegree = poly_degree(poly2)
-        divisorLC = poly_leading_coeff(poly2)
+        divisordegree = poly_degree(poly2)
+        divisorlc = poly_leading_coeff(poly2)
         i = 0
-        while poly_degree(remainder) >= divisorDegree:
-            s = [poly_leading_coeff(remainder) / divisorLC, poly_degree(remainder) - divisorDegree]
+        while poly_degree(remainder) >= divisordegree:
+            s = [poly_leading_coeff(remainder) / divisorlc, poly_degree(remainder) - divisordegree]
             quotient.append(s)
             remainder = poly_subtraction(remainder, poly_poly_multiplication([s], poly2))
             remainder = poly_remove_zeros(remainder)

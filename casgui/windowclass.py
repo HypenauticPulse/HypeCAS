@@ -68,6 +68,7 @@ class GenOperationWindow:
             if quotient == -1 and remainder == -1:
                 lbl_res_quotient["text"] = "Error, divisor is zero"
             else:
+                print(quotient)
                 lbl_res_quotient["text"] = polycon.poly_conversion_string(quotient)
                 lbl_res_remainder["text"] = polycon.poly_conversion_string(remainder)
 

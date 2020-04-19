@@ -2,11 +2,16 @@
   <dictionary name="ctvnu">
     <words>
       <w>coeff</w>
+      <w>coeffpower</w>
       <w>conspoly</w>
+      <w>divisordegree</w>
+      <w>divisorlc</w>
+      <w>gendivwindow</w>
       <w>polyarray</w>
       <w>polycon</w>
       <w>polyin</w>
       <w>polyop</w>
+      <w>polystring</w>
       <w>tempstring</w>
     </words>
   </dictionary>
