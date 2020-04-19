@@ -42,6 +42,42 @@ def poly_leading_coeff(poly):
     return lc
 
 
+def poly_find_coefficient(poly, power):
+    coeff = 0
+    found = 0
+    i = 0
+    while i < len(poly) and not found:
+        if poly[i][1] == power:
+            coeff = poly[i][0]
+            found = 1
+            i += 1
+        else:
+            i += 1
+
+    return coeff
+
+
+def poly_quadratic_zeros(poly):
+    if poly_degree(poly) == 2:
+        a = poly_find_coefficient(poly, 2)
+        b = poly_find_coefficient(poly, 1)
+        c = poly_find_coefficient(poly, 0)
+        discriminant = b ** 2 - 4 * a * c
+        if discriminant > 0:
+            zero1 = (-b + discriminant ** 0.5) / (2 * a)
+            zero2 = (-b - discriminant ** 0.5) / (2 * a)
+        else:
+            print("The zeroes are complex")
+            zero1 = 'C'
+            zero2 = 'C'
+    else:
+        print("The polynomial is not quadratic")
+        zero1 = 'NaN'
+        zero2 = 'NaN'
+
+    return zero1, zero2
+
+
 def poly_addition(poly1, poly2):
     result = poly_sort(poly_consolidate(poly1 + poly2))
     return result

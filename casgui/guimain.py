@@ -12,6 +12,7 @@ def gen_gui():
     sub_window = wc.GenOperationWindow("Polynomial Subtraction", polyop.poly_subtraction, "-")
     multi_window = wc.GenOperationWindow("Polynomial Multiplication", polyop.poly_poly_multiplication, "x")
     div_window = wc.GenOperationWindow("Polynomial Long Division", polyop.poly_poly_division, "/")
+    zero_window = wc.GenOperationWindow("Polynomial Roots", polyop.poly_quadratic_zeros, "= 0")
 
     root = tk.Tk()
 
@@ -28,7 +29,7 @@ def gen_gui():
     frm_buttons.grid(row=1, column=0)
 
     frm_buttons.rowconfigure([0], minsize=50, weight=1)
-    frm_buttons.columnconfigure([0, 1, 2, 3], minsize=50, weight=1)
+    frm_buttons.columnconfigure([0, 1, 2, 3, 4], minsize=50, weight=1)
 
     btn_addition = tk.Button(master=frm_buttons, text="Addition", command=add_window.genwindow)
     btn_addition.grid(row=0, column=0, sticky="nsew")
@@ -41,6 +42,9 @@ def gen_gui():
 
     btn_division = tk.Button(master=frm_buttons, text="Divison", command=div_window.gendivwindow)
     btn_division.grid(row=0, column=3, sticky="nsew")
+
+    btn_roots = tk.Button(master=frm_buttons, text="Zeros", command=zero_window.genrootswindow)
+    btn_roots.grid(row=0, column=4, sticky="nsew")
 
     root.mainloop()
 
