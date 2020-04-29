@@ -10,3 +10,4 @@ Current functionality of HypeCAS:
   - Polynomial addition, subtraction, multiplication (scalar and polynomial), division (scalar and polynomial).
   - Degree finder.
   - Leading coefficient finder.
+  - Quadratic formula for quadratic zeros.
