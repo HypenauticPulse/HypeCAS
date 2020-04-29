@@ -47,70 +47,70 @@ def poly_conversion_string(polyarray):
             if j[1] == polyarray[0][1]:
                 if j[1] == 0:
                     if j[0] > 0:
-                        tempstring = "{}".format(str(j[0]))
+                        tempstring = "{}".format(str(int(j[0])))
                         polystring += tempstring + " "
                     elif j[0] < 0:
-                        tempstring = "- {}".format(str(abs(j[0])))
+                        tempstring = "- {}".format(str(int(abs(j[0]))))
                         polystring += tempstring + " "
                 elif j[1] == 1.0:
                     if j[0] == 1.0:
                         tempstring = "x"
                         polystring += tempstring + " "
                     elif j[0] > 0.0:
-                        tempstring = "{}x".format(str(j[0]))
+                        tempstring = "{}x".format(str(int(j[0])))
                         polystring += tempstring + " "
                     elif j[0] == -1.0:
                         tempstring = "- x"
                         polystring += tempstring + " "
                     elif j[0] < 0.0:
-                        tempstring = "- {}x".format(str(abs(j[0])))
+                        tempstring = "- {}x".format(str(int(abs(j[0]))))
                         polystring += tempstring + " "
                 else:
                     if j[0] == 1.0:
-                        tempstring = "x^{}".format(str(j[1]))
+                        tempstring = "x^{}".format(str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] > 0.0:
-                        tempstring = "{}x^{}".format(str(j[0]), str(j[1]))
+                        tempstring = "{}x^{}".format(str(int(j[0])), str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] == -1.0:
-                        tempstring = "- x^{}".format(str(j[1]))
+                        tempstring = "- x^{}".format(str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] < 0.0:
-                        tempstring = "- {}x^{}".format(str(abs(j[0])), str(j[1]))
+                        tempstring = "- {}x^{}".format(str(int(abs(j[0]))), str(int(j[1])))
                         polystring += tempstring + " "
             else:
                 if j[1] == 0:
                     if j[0] > 0:
-                        tempstring = "+ {}".format(str(j[0]))
+                        tempstring = "+ {}".format(str(int(j[0])))
                         polystring += tempstring + " "
                     elif j[0] < 0:
-                        tempstring = "- {}".format(str(abs(j[0])))
+                        tempstring = "- {}".format(str(int(abs(j[0]))))
                         polystring += tempstring + " "
                 elif j[1] == 1.0:
                     if j[0] == 1.0:
                         tempstring = "+ x"
                         polystring += tempstring + " "
                     if j[0] > 1.0:
-                        tempstring = "+ {}x".format(str(j[0]))
+                        tempstring = "+ {}x".format(str(int(j[0])))
                         polystring += tempstring + " "
                     elif j[0] == -1.0:
                         tempstring = "- x"
                         polystring += tempstring + " "
                     elif j[0] < -1.0:
-                        tempstring = "- {}x".format(str(abs(j[0])))
+                        tempstring = "- {}x".format(str(int(abs(j[0]))))
                         polystring += tempstring + " "
                 else:
                     if j[0] == 1.0:
-                        tempstring = "+ x^{}".format(str(j[1]))
+                        tempstring = "+ x^{}".format(str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] > 1.0:
-                        tempstring = "+ {}x^{}".format(str(j[0]), str(j[1]))
+                        tempstring = "+ {}x^{}".format(str(int(j[0])), str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] == -1.0:
-                        tempstring = "- x^{}".format(str(j[1]))
+                        tempstring = "- x^{}".format(str(int(j[1])))
                         polystring += tempstring + " "
                     elif j[0] < -1.0:
-                        tempstring = "- {}x^{}".format(str(abs(j[0])), str(j[1]))
+                        tempstring = "- {}x^{}".format(str(int(abs(j[0]))), str(int(j[1])))
                         polystring += tempstring + " "
     return polystring
 

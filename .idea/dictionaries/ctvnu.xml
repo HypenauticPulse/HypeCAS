@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="ctvnu">
     <words>
+      <w>addsubparse</w>
       <w>coeff</w>
       <w>coeffpower</w>
       <w>conspoly</w>
@@ -9,11 +10,14 @@
       <w>gendivwindow</w>
       <w>genrootswindow</w>
       <w>genzeroswindow</w>
+      <w>lparen</w>
+      <w>nexpr</w>
       <w>polyarray</w>
       <w>polycon</w>
       <w>polyin</w>
       <w>polyop</w>
       <w>polystring</w>
+      <w>rparen</w>
       <w>tempstring</w>
     </words>
   </dictionary>
