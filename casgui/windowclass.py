@@ -3,9 +3,9 @@ import sys
 
 sys.path.insert(0, '../')
 
-import polyconvert as polycon
+from polyutil import polyconvert as polycon
 
-
+# TODO: Rework GUI to use the new Polynomial class
 class GenOperationWindow:
     def __init__(self, title, operation, sign):
         self.title = title

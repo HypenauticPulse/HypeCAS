@@ -7,6 +7,7 @@ def poly_consolidate(poly):
 
 
 def poly_degree(poly):
+    print(poly)
     degrees = []
     for i in poly:
         degrees.append(i[1])
@@ -22,9 +23,13 @@ def poly_remove_zeros(poly):
 
 
 def poly_pop_zeros(poly):
-    for i in range(len(poly)):
+    poly = poly_remove_zeros(poly)
+    i = 0
+    while i < len(poly):
         if poly[i] == [0, 0]:
             poly.pop(i)
+        else:
+            i += 1
     return poly
 
 
@@ -80,36 +85,39 @@ def poly_quadratic_zeros(poly):
 
 def poly_addition(poly1, poly2):
     result = poly_sort(poly_consolidate(poly1 + poly2))
-    return result
+    return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
 
 def poly_subtraction(poly1, poly2):
-    for i in range(len(poly2)):
-        poly2[i][0] = - poly2[i][0]
-    result = poly_sort(poly_consolidate(poly1 + poly2))
-    return result
+    ply2 = []
+    for i in range(len(ply2)):
+        ply2.append(- poly2[i][0])
+    result = poly_sort(poly_consolidate(poly1 + ply2))
+    return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
 
 def poly_scalar_multiplication(poly, scalar):
     result = []
     for i in poly:
         result.append([i[0] * scalar, i[1]])
-    return poly_sort(poly_consolidate(result))
+    return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
 
 def poly_poly_multiplication(poly1, poly2):
     result = []
     for i in poly1:
         for j in poly2:
+            # print("i", i)
+            # print("j", j)
             result.append([i[0] * j[0], i[1] + j[1]])
-    return poly_sort(poly_consolidate(result))
+    return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
 
 def poly_scalar_division(poly, scalar):
     result = []
     for i in poly:
         result.append([i[0] / scalar, i[1]])
-    return poly_sort(poly_consolidate(result))
+    return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
 
 def poly_poly_division(poly1, poly2):

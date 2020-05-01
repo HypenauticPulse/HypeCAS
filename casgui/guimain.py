@@ -4,8 +4,8 @@ import sys
 sys.path.insert(0, '../')
 
 import casgui.windowclass as wc
-import polyoperations as polyop
-import polyconvert as polycon
+from polyutil import polyoperations as polyop
+
 
 def gen_gui():
     add_window = wc.GenOperationWindow("Polynomial Addition", polyop.poly_addition, "+")

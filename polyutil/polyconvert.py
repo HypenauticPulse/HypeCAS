@@ -1,6 +1,6 @@
 import re
 
-import polyoperations as polyop
+from polyutil import polyoperations as polyop
 
 
 def poly_conversion_array(poly, var):

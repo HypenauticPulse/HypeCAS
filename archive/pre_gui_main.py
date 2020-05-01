@@ -1,6 +1,4 @@
-import polyinput as polyin
-import polyconvert as polycon
-import polyoperations as polyop
+from polyutil import polyconvert as polycon, polyoperations as polyop, polyinput as polyin
 
 print("Valid operations\n"
       "(1) Polynomial Addition\n"
