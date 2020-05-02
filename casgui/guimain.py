@@ -8,11 +8,11 @@ from polyutil import polyoperations as polyop
 
 
 def gen_gui():
-    add_window = wc.GenOperationWindow("Polynomial Addition", polyop.poly_addition, "+")
-    sub_window = wc.GenOperationWindow("Polynomial Subtraction", polyop.poly_subtraction, "-")
-    multi_window = wc.GenOperationWindow("Polynomial Multiplication", polyop.poly_poly_multiplication, "x")
-    div_window = wc.GenOperationWindow("Polynomial Long Division", polyop.poly_poly_division, "/")
-    zero_window = wc.GenOperationWindow("Polynomial Roots", polyop.poly_quadratic_zeros, "= 0")
+    add_window = wc.GenOperationWindow("Polynomial Addition", "+")
+    sub_window = wc.GenOperationWindow("Polynomial Subtraction", "-")
+    multi_window = wc.GenOperationWindow("Polynomial Multiplication", "x")
+    div_window = wc.GenOperationWindow("Polynomial Long Division", "/")
+    zero_window = wc.GenOperationWindow("Polynomial Roots", "= 0")
 
     root = tk.Tk()
 

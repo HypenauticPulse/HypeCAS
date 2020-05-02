@@ -7,7 +7,6 @@ def poly_consolidate(poly):
 
 
 def poly_degree(poly):
-    print(poly)
     degrees = []
     for i in poly:
         degrees.append(i[1])
@@ -67,7 +66,9 @@ def poly_quadratic_zeros(poly):
         a = poly_find_coefficient(poly, 2)
         b = poly_find_coefficient(poly, 1)
         c = poly_find_coefficient(poly, 0)
+        print(a, b, c)
         discriminant = b ** 2 - 4 * a * c
+        print(discriminant)
         if discriminant > 0:
             zero1 = (-b + discriminant ** 0.5) / (2 * a)
             zero2 = (-b - discriminant ** 0.5) / (2 * a)
@@ -90,8 +91,8 @@ def poly_addition(poly1, poly2):
 
 def poly_subtraction(poly1, poly2):
     ply2 = []
-    for i in range(len(ply2)):
-        ply2.append(- poly2[i][0])
+    for i in range(len(poly2)):
+        ply2.append([- poly2[i][0], poly2[i][1]])
     result = poly_sort(poly_consolidate(poly1 + ply2))
     return poly_pop_zeros(poly_sort(poly_consolidate(result)))
 
@@ -140,3 +141,11 @@ def poly_poly_division(poly1, poly2):
             remainder = poly_remove_zeros(remainder)
             i += 1
         return quotient, remainder
+
+
+def derivative_powrule(expr):
+    temp = []
+    for i in expr:
+        if i[1] != 0:
+            temp.append([i[0] * i[1], i[1] - 1])
+    return temp

@@ -9,18 +9,18 @@ def parenfind(expr, start, end):
     return expr[expr.find("(", start, end) + 1:expr.find(")")]
 
 
-class Expr:
+class Expression:
     def __init__(self, expr, var):
         self.exprString = expr
         self.var = var
         self.length = len(self.exprString)
-        self.lhs, self.rhs, self.isequality = self.check_equality()
+        self.isequality = self.check_equality()
 
     def check_equality(self):
         for i in range(self.length):
             if '=' in self.exprString[i]:
-                return [self.exprString[0:i - 1], self.exprString[i + 2: self.length], True]
-        return [None, None, False]
+                return True
+        return False
 
     def array_no_paren(self, expr):
         coeffpower = []
@@ -117,4 +117,3 @@ class Expr:
     def array_from_equ(self):
         if self.isequality:
             return self.array_from_expr(self.lhs), self.array_from_expr(self.rhs)
-

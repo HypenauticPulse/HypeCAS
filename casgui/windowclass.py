@@ -1,22 +1,26 @@
 import tkinter as tk
 import sys
+from Polynomial import Polynomial
 
 sys.path.insert(0, '../')
 
-from polyutil import polyconvert as polycon
-
+from polyutil import polyconvert as polycon, polyoperations as polyop
 # TODO: Rework GUI to use the new Polynomial class
 class GenOperationWindow:
-    def __init__(self, title, operation, sign):
+    def __init__(self, title, sign):
         self.title = title
-        self.operation = operation
         self.sign = sign
 
     def genwindow(self):
         def win_execute():
-            poly1 = polycon.poly_format(ent_first.get(), 'x')
-            poly2 = polycon.poly_format(ent_second.get(), 'x')
-            result = self.operation(poly1, poly2)
+            poly1 = Polynomial(ent_first.get(), "x")
+            poly2 = Polynomial(ent_second.get(), "x")
+            if self.sign == "+":
+                result = poly1 + poly2
+            elif self.sign == "-":
+                result = poly1 - poly2
+            elif self.sign == "x":
+                result = poly1 * poly2
             lbl_result["text"] = polycon.poly_conversion_string(result)
 
         window = tk.Tk()
@@ -62,9 +66,9 @@ class GenOperationWindow:
 
     def gendivwindow(self):
         def win_execute():
-            poly1 = polycon.poly_format(ent_first.get(), 'x')
-            poly2 = polycon.poly_format(ent_second.get(), 'x')
-            [quotient, remainder] = self.operation(poly1, poly2)
+            poly1 = Polynomial(ent_first.get(), 'x')
+            poly2 = Polynomial(ent_second.get(), 'x')
+            [quotient, remainder] = polyop.poly_poly_division(poly1.exprArray, poly2.exprArray)
             if quotient == -1 and remainder == -1:
                 lbl_res_quotient["text"] = "Error, divisor is zero"
                 lbl_res_remainder["text"] = ""
@@ -130,8 +134,8 @@ class GenOperationWindow:
 
     def genrootswindow(self):
         def win_execute():
-            poly = polycon.poly_format(ent_first.get(), 'x')
-            [zero1, zero2] = self.operation(poly)
+            poly = Polynomial(ent_first.get(), 'x')
+            [zero1, zero2] = poly.zeros()
             if zero1 == 'C' and zero2 == 'C':
                 lbl_res_zero1["text"] = "Roots are complex"
                 lbl_res_zero2["text"] = ""
