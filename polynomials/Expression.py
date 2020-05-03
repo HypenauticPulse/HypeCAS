@@ -5,10 +5,6 @@ def test():
     print("Test")
 
 
-def parenfind(expr, start, end):
-    return expr[expr.find("(", start, end) + 1:expr.find(")")]
-
-
 class Expression:
     def __init__(self, expr, var):
         self.exprString = expr
@@ -49,6 +45,10 @@ class Expression:
                 else:
                     coeffpower.append([float(expr[i - 1] + temp[0]), int(temp[1].split('^')[1])])
         return polyop.poly_sort(polyop.poly_consolidate(coeffpower))
+
+    @staticmethod
+    def parenfind(expr, start, end):
+        return expr[expr.find("(", start, end) + 1:expr.find(")")]
 
     def array_paren(self, expr):
         lparen = expr.find("(")

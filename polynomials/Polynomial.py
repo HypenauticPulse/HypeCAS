@@ -1,4 +1,4 @@
-from Expression import Expression
+from polynomials.Expression import Expression
 from polyutil import polyoperations as polyop, polyconvert as polycon
 
 
@@ -55,28 +55,15 @@ class Polynomial(Expression):
     def get_degree(self):
         return polyop.poly_degree(self.exprArray)
 
-    def zeros(self):
-        if self.degree == 2:
-            return polyop.poly_quadratic_zeros(self.exprArray)
-        elif self.degree == 1:
-            return - self.exprArray[1][0] / self.exprArray[0][0], None
-        elif self.degree == 0:
-            print("Constants do not have zeros")
-            return None
-        else:
-            print("Unable to find zeros for a Polynomial with greater than degree two at this time")
-            return None
-
-    def evaluate(self, input):
+    def evaluate(self, inputval):
         output = 0
         for i in self.exprArray:
-            output += i[0] * input ** i[1]
+            output += i[0] * (inputval ** i[1])
         return output
 
-    def zeros_new(self):
+    def zeros(self):
         start = -25
         end = 25
-        zerocount = 0
         zeros = []
         guesses = []
         trigger = 0
@@ -95,11 +82,10 @@ class Polynomial(Expression):
             if zerocount == self.degree:
                 trigger = 1
             else:
-                zerocount = 0
                 start *= 10
                 end *= 10
 
-        fderiv = Polynomial(polycon.poly_conversion_string(polyop.derivative_powrule(self.exprArray)), self.var)
+        fderiv = Polynomial(polycon.poly_conversion_string(self.derivative(self.exprArray)), self.var)
         for k in guesses:
             temp = k
             while abs(self.evaluate(temp)) > (1 * (10 ** (-10))):
@@ -113,4 +99,44 @@ class Polynomial(Expression):
                     zeros.append(temp)
             else:
                 zeros.append(temp)
-        return guesses, zeros
+        return zeros
+
+    @staticmethod
+    def derivative(expr):
+        temp = []
+        for i in expr:
+            if i[1] != 0:
+                temp.append([i[0] * i[1], i[1] - 1])
+        return temp
+
+    @staticmethod
+    def indef_integral(expr, initialinput, initialvalue):
+        temp = []
+        for i in expr:
+            temp.append([i[0] / (i[1] + 1), i[1] + 1])
+        constant = initialvalue
+        for i in temp:
+            constant += i[0] * initialinput ** i[1]
+        temp.append([constant, 0])
+        return temp
+
+    @staticmethod
+    def definite_integral(expr, start, end):
+        temp = []
+        for i in expr:
+            temp.append([i[0] / (i[1] + 1), i[1] + 1])
+        startval = 0
+        endval = 0
+        for i in temp:
+            startval += i[0] * (start ** i[1])
+        for i in temp:
+            endval += i[0] * (end ** i[1])
+        return endval - startval
+
+    def find_extrema(self):
+        fderiv = Polynomial(polycon.poly_conversion_string(self.derivative(self.exprArray)), self.var)
+        fderivzeros = fderiv.zeros()
+        extrema = []
+        for i in fderivzeros:
+            extrema.append([i, self.evaluate(i)])
+        return extrema

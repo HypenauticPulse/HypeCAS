@@ -1,6 +1,6 @@
 import tkinter as tk
 import sys
-from Polynomial import Polynomial
+from polynomials.Polynomial import Polynomial
 
 sys.path.insert(0, '../')
 

@@ -1,4 +1,4 @@
-from Expression import Expression
+from polynomials.Expression import Expression
 from polyutil import polyoperations as polyop
 
 

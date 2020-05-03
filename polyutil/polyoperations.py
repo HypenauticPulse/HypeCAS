@@ -141,11 +141,3 @@ def poly_poly_division(poly1, poly2):
             remainder = poly_remove_zeros(remainder)
             i += 1
         return quotient, remainder
-
-
-def derivative_powrule(expr):
-    temp = []
-    for i in expr:
-        if i[1] != 0:
-            temp.append([i[0] * i[1], i[1] - 1])
-    return temp

@@ -9,3 +9,4 @@ gen_gui()
 # TODO: implement minima and maxima finder
 # TODO: implement polynomial quotients
 # TODO: check for differentiability
+
