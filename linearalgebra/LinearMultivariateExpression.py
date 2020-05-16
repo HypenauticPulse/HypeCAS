@@ -6,6 +6,8 @@ class LinearMultivariateExpression:
         self.exprString = exprstring
         self.variables = variables
         self.islinear = self.checklinearity()
+        self.length = len(self.exprString)
+        self.isequality = self.check_equality()
 
     def checklinearity(self):
         expr = self.exprString.split()
@@ -22,7 +24,14 @@ class LinearMultivariateExpression:
         else:
             return True
 
-    def array_no_paren(self, expr, var):
+    def check_equality(self):
+        for i in range(self.length):
+            if '=' in self.exprString[i]:
+                return True
+        return False
+
+    @staticmethod
+    def array_no_paren(expr, var):
         coeffpower = []
         expr = expr.split()
         if len(expr) % 2 == 0:
@@ -48,6 +57,7 @@ class LinearMultivariateExpression:
                     coeffpower.append([float(expr[i - 1] + temp[0]), int(1), var])
                 else:
                     coeffpower.append([float(expr[i - 1] + temp[0]), int(temp[1].split('^')[1]), var])
+        print("s", coeffpower)
         return coeffpower
 
     def parse(self, expr):
@@ -57,7 +67,8 @@ class LinearMultivariateExpression:
         exprs = []
         for i in self.variables:
             exprs.append([])
-
+            if i in expr[0]:
+                expr.insert(0, "+ ")
         i = 0
         while i < len(expr):
             trigger = 0
@@ -69,13 +80,17 @@ class LinearMultivariateExpression:
                     expr.pop(i)
                 j += 1
             i += 1
-
+        print("t", expr)
         for i in expr:
+            
             for j in range(len(self.variables)):
                 if self.variables[j] in i:
                     exprs[j].append(i)
-
         for i in range(len(exprs)):
             for j in exprs[i]:
                 coeffpower.append(self.array_no_paren(j, self.variables[i])[0])
         return polyop.poly_consolidate(coeffpower)
+
+    def array_from_equ(self, lhs, rhs):
+        if self.isequality:
+            return self.parse(lhs), self.parse(rhs)

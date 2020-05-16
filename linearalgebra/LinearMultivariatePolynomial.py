@@ -1,4 +1,4 @@
-from polynomials.LinearMultivariateExpression import LinearMultivariateExpression
+from linearalgebra.LinearMultivariateExpression import LinearMultivariateExpression
 
 
 class LinearMultivariatePolynomial(LinearMultivariateExpression):

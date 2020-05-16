@@ -20,7 +20,9 @@
       <w>initialvale</w>
       <w>inputval</w>
       <w>isequality</w>
+      <w>leftequations</w>
       <w>lefttemp</w>
+      <w>lhsarray</w>
       <w>lparen</w>
       <w>maxima</w>
       <w>minima</w>
@@ -33,6 +35,8 @@
       <w>polyop</w>
       <w>polystring</w>
       <w>powrule</w>
+      <w>rhsarray</w>
+      <w>rightequations</w>
       <w>righttemp</w>
       <w>rparen</w>
       <w>tempstring</w>

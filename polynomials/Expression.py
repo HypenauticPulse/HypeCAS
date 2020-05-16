@@ -114,6 +114,6 @@ class Expression:
         else:
             return self.array_paren(expr)
 
-    def array_from_equ(self):
+    def array_from_equ(self, lhs, rhs):
         if self.isequality:
-            return self.array_from_expr(self.lhs), self.array_from_expr(self.rhs)
+            return self.array_from_expr(lhs), self.array_from_expr(rhs)

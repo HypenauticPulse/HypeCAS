@@ -22,8 +22,8 @@ class Equality(Expression):
                 return [self.exprString[0: i - 1], self.exprString[i + 2: self.length]]
 
     def gen_array(self):
-        lhsA, rhsA = self.array_from_equ()
-        return lhsA, rhsA
+        lhsarray, rhsarray = self.array_from_equ(self.lhs, self.rhs)
+        return lhsarray, rhsarray
 
     def __add__(self, other):
         if isinstance(other, Equality):
