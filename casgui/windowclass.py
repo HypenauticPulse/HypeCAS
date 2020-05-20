@@ -1,17 +1,15 @@
 import tkinter as tk
 import sys
 from polynomials.Polynomial import Polynomial
-
-sys.path.insert(0, '../')
-
 from polyutil import polyconvert as polycon, polyoperations as polyop
-# TODO: Rework GUI to use the new Polynomial class
+
+
 class GenOperationWindow:
     def __init__(self, title, sign):
         self.title = title
         self.sign = sign
 
-    def genwindow(self):
+    def gen_window(self):
         def win_execute():
             poly1 = Polynomial(ent_first.get(), "x")
             poly2 = Polynomial(ent_second.get(), "x")
@@ -161,7 +159,7 @@ class GenOperationWindow:
         frm_win_main.grid(row=1, column=0)
 
         frm_win_main.rowconfigure([0, 1, 2, 3], minsize=50, weight=1)
-        frm_win_main.columnconfigure([0, 1, 2,], minsize=50, weight=1)
+        frm_win_main.columnconfigure([0, 1, 2, ], minsize=50, weight=1)
 
         lbl_first = tk.Label(master=frm_win_main, text="Polynomial to find roots of:")
         lbl_first.grid(row=1, column=0)

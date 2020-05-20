@@ -31,13 +31,13 @@ def gen_gui():
     frm_buttons.rowconfigure([0], minsize=50, weight=1)
     frm_buttons.columnconfigure([0, 1, 2, 3, 4], minsize=50, weight=1)
 
-    btn_addition = tk.Button(master=frm_buttons, text="Addition", command=add_window.genwindow)
+    btn_addition = tk.Button(master=frm_buttons, text="Addition", command=add_window.gen_window)
     btn_addition.grid(row=0, column=0, sticky="nsew")
 
-    btn_subtraction = tk.Button(master=frm_buttons, text="Subtraction", command=sub_window.genwindow)
+    btn_subtraction = tk.Button(master=frm_buttons, text="Subtraction", command=sub_window.gen_window)
     btn_subtraction.grid(row=0, column=1, sticky="nsew")
 
-    btn_multiplication = tk.Button(master=frm_buttons, text="Multiplication", command=multi_window.genwindow)
+    btn_multiplication = tk.Button(master=frm_buttons, text="Multiplication", command=multi_window.gen_window)
     btn_multiplication.grid(row=0, column=2, sticky="nsew")
 
     btn_division = tk.Button(master=frm_buttons, text="Divison", command=div_window.gendivwindow)

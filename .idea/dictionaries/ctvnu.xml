@@ -8,6 +8,7 @@
       <w>coeff</w>
       <w>coeffpower</w>
       <w>conspoly</w>
+      <w>denom</w>
       <w>divisordegree</w>
       <w>divisorlc</w>
       <w>existtrigger</w>
@@ -29,17 +30,20 @@
       <w>multiplyend</w>
       <w>nexpr</w>
       <w>parenfind</w>
+      <w>parens</w>
       <w>polyarray</w>
       <w>polycon</w>
       <w>polyin</w>
       <w>polyop</w>
       <w>polystring</w>
       <w>powrule</w>
+      <w>pstack</w>
       <w>rhsarray</w>
       <w>rightequations</w>
       <w>righttemp</w>
       <w>rparen</w>
       <w>tempstring</w>
+      <w>toret</w>
     </words>
   </dictionary>
 </component>
