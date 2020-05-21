@@ -90,48 +90,36 @@ def parse_np(expression, variables):
 
 
 def parse_expr(expression, variables):
-    print('called')
     paren_indices = find_parens(expression)
-    print('parenthesis indices:', paren_indices)
     result = []
     if paren_indices:
         i = len(paren_indices) - 1
         while i >= 0:
             if i == len(paren_indices) - 1:
-                print('last index set')
                 left = paren_indices[i][0] + 1
                 right = paren_indices[i][1]
                 inside = expression[left:right]
-                print('inside:', inside)
                 inside = parse_expr(inside, variables)
-                print('inside (parsed):', inside)
                 if left - 1 == 0:
                     if right == len(expression) - 1:
                         result = inside
                     else:
                         if expression[right + 1] == ' ':
                             outside = expression[right + 1: len(expression)]
-                            print('outside:', outside)
                             outside = parse_expr(outside, variables)
-                            print('outside (parsed)', outside)
                             result = polyop.poly_addition(inside, outside)
                         else:
                             multiplier_end = expression.find(' ', right)
                             if multiplier_end == -1:
                                 multiplier_end = len(expression)
                             multiplier = expression[right + 1:multiplier_end]
-                            print('multiplier:', multiplier)
                             multiplier = parse_expr(multiplier, variables)
-                            print('multiplier (parsed):', multiplier)
                             inside = polyop.poly_poly_multiplication(inside, multiplier)
-                            print('multiplied inside:', inside)
                             if multiplier_end == len(expression):
                                 result = inside
                             else:
                                 outside = expression[multiplier_end:len(expression)]
-                                print('outside:', outside)
                                 outside = parse_expr(outside, variables)
-                                print('outside (parsed)', outside)
                                 result = polyop.poly_addition(inside, outside)
 
                 else:
@@ -139,12 +127,43 @@ def parse_expr(expression, variables):
                         if expression[left - 2] == ' ':
                             if expression[left - 3] == '-':
                                 inside = polyop.poly_scalar_multiplication(inside, -1.0)
-                            print('inside (after negative check):', inside)
                             outside = expression[0:left - 4]
-                            print('outside:', outside)
                             outside = parse_expr(outside, variables)
-                            print('outside (parsed)', outside)
                             result = polyop.poly_addition(inside, outside)
+                        elif expression[left - 2] == ')':
+                            j = i - 1
+                            paren_multiplier_start = left - 1
+                            while j >= 0:
+                                if paren_indices[j][1] == paren_indices[j + 1][0] - 1:
+                                    paren_multiplier_start = paren_indices[j][0]
+                                j -= 1
+                            paren_multiplier = expression[paren_multiplier_start:left - 1]
+                            paren_multiplier = parse_expr(paren_multiplier, variables)
+                            inside = polyop.poly_poly_multiplication(inside, paren_multiplier)
+                            if paren_multiplier_start == 0:
+                                result = inside
+                            else:
+                                if expression[paren_multiplier_start - 1] == ' ':
+                                    if expression[paren_multiplier_start - 2] == '-':
+                                        inside = polyop.poly_scalar_multiplication(inside, -1.0)
+                                    outside = expression[0:paren_multiplier_start - 3]
+                                    outside = parse_expr(outside, variables)
+                                    result = polyop.poly_addition(inside, outside)
+                                else:
+                                    multiplier_start = expression.rfind(' ', 0, paren_multiplier_start)
+                                    if multiplier_start == -1:
+                                        multiplier_start = 0
+                                    else:
+                                        multiplier_start -= 1
+                                    multiplier = expression[multiplier_start:paren_multiplier_start]
+                                    multiplier = parse_expr(multiplier, variables)
+                                    inside = polyop.poly_poly_multiplication(inside, multiplier)
+                                    if multiplier_start == 0:
+                                        result = inside
+                                    else:
+                                        outside = expression[0:multiplier_start - 1]
+                                        outside = parse_expr(outside, variables)
+                                        result = polyop.poly_addition(inside, outside)
                         else:
                             multiplier_start = expression.rfind(' ', 0, left - 1)
                             if multiplier_start == -1:
@@ -152,49 +171,113 @@ def parse_expr(expression, variables):
                             else:
                                 multiplier_start -= 1
                             multiplier = expression[multiplier_start:left - 1]
-                            print('multiplier:', multiplier)
                             multiplier = parse_expr(multiplier, variables)
-                            print('multiplier (parsed):', multiplier)
                             inside = polyop.poly_poly_multiplication(inside, multiplier)
-                            print('multiplied inside:', inside)
                             if multiplier_start == 0:
                                 result = inside
                             else:
                                 outside = expression[0:multiplier_start - 1]
-                                print('outside:', outside)
                                 outside = parse_expr(outside, variables)
-                                print('outside (parsed)', outside)
                                 result = polyop.poly_addition(inside, outside)
                     else:
-                        if expression[left - 2] == ' ' and expression[right + 1] == ' ':
+                        if expression[left - 2] == ')':
+                            j = i - 1
+                            paren_multiplier_start = left - 1
+                            while j >= 0:
+                                if paren_indices[j][1] == paren_indices[j + 1][0] - 1:
+                                    paren_multiplier_start = paren_indices[j][0]
+                                j -= 1
+                            paren_multiplier = expression[paren_multiplier_start:left - 1]
+                            paren_multiplier = parse_expr(paren_multiplier, variables)
+                            inside = polyop.poly_poly_multiplication(inside, paren_multiplier)
+                            if paren_multiplier_start == 0 and right == len(expression) - 1:
+                                result = inside
+                            else:
+                                if expression[paren_multiplier_start - 1] == ' ' and expression[right + 1] == ' ':
+                                    if expression[paren_multiplier_start - 2] == '-':
+                                        inside = polyop.poly_scalar_multiplication(inside, -1.0)
+                                    outside = expression[0:paren_multiplier_start - 3] + expression[right + 1:len(expression)]
+                                    outside = parse_expr(outside, variables)
+                                    result = polyop.poly_addition(inside, outside)
+                                elif expression[paren_multiplier_start - 1] == ' ' and expression[right + 1] != ' ':
+                                    if expression[paren_multiplier_start - 2] == '-':
+                                        inside = polyop.poly_scalar_multiplication(inside, -1.0)
+                                    multiplier_end = expression.find(' ', right)
+                                    if multiplier_end == -1:
+                                        multiplier_end = len(expression)
+                                    multiplier = expression[right + 1:multiplier_end]
+                                    multiplier = parse_expr(multiplier, variables)
+                                    inside = polyop.poly_poly_multiplication(inside, multiplier)
+                                    if multiplier_end == len(expression):
+                                        outside = expression[0:paren_multiplier_start - 3]
+                                    else:
+                                        outside = expression[0:paren_multiplier_start - 3] + expression[multiplier_end:len(expression)]
+                                    outside = parse_expr(outside, variables)
+                                    result = polyop.poly_addition(inside, outside)
+                                elif expression[paren_multiplier_start - 1] != ' ' and expression[right + 1] == ' ':
+                                    multiplier_start = expression.rfind(' ', 0, paren_multiplier_start)
+                                    if multiplier_start == -1:
+                                        multiplier_start = 0
+                                    else:
+                                        multiplier_start -= 1
+                                    multiplier = expression[multiplier_start:paren_multiplier_start]
+                                    multiplier = parse_expr(multiplier, variables)
+                                    inside = polyop.poly_poly_multiplication(inside, multiplier)
+                                    if multiplier_start == 0:
+                                        result = inside
+                                    else:
+                                        outside = expression[0:multiplier_start - 1] + expression[right + 1: len(expression)]
+                                        outside = parse_expr(outside, variables)
+                                        result = polyop.poly_addition(inside, outside)
+                                elif expression[paren_multiplier_start - 1] != ' ' and expression[right + 1] != ' ':
+                                    multiplier_left_start = expression.rfind(' ', 0, paren_multiplier_start)
+                                    if multiplier_left_start == -1:
+                                        multiplier_left_start = 0
+                                    else:
+                                        multiplier_left_start -= 1
+                                    multiplier_right_end = expression.find(' ', right)
+                                    if multiplier_right_end == -1:
+                                        multiplier_right_end = len(expression)
+                                    multiplier_left = expression[multiplier_left_start:paren_multiplier_start]
+                                    multiplier_right = expression[right + 1:multiplier_right_end]
+                                    multiplier_left = parse_expr(multiplier_left, variables)
+                                    multiplier_right = parse_expr(multiplier_right, variables)
+                                    inside = polyop.poly_poly_multiplication(inside, multiplier_left)
+                                    inside = polyop.poly_poly_multiplication(inside, multiplier_right)
+                                    if multiplier_left_start == 0 and multiplier_right_end == len(expression):
+                                        result = inside
+                                    elif multiplier_left_start != 0 and multiplier_right_end == len(expression):
+                                        outside = expression[0:multiplier_left_start - 1]
+                                        outside = parse_expr(outside, variables)
+                                        result = polyop.poly_addition(inside, outside)
+                                    elif multiplier_left_start == 0 and multiplier_right_end != len(expression):
+                                        outside = expression[multiplier_right_end:len(expression)]
+                                        outside = parse_expr(outside, variables)
+                                        result = polyop.poly_addition(inside, outside)
+                                    elif multiplier_left_start != 0 and multiplier_right_end != len(expression):
+                                        outside = expression[0:multiplier_left_start - 1] + expression[multiplier_right_end:len(expression)]
+                                        outside = parse_expr(outside, variables)
+                                        result = polyop.poly_addition(inside, outside)
+                        elif expression[left - 2] == ' ' and expression[right + 1] == ' ':
                             if expression[left - 3] == '-':
                                 inside = polyop.poly_scalar_multiplication(inside, -1.0)
-                            print('inside (after negative check):', inside)
                             outside = expression[0:left - 4] + expression[right + 1:len(expression)]
-                            print('outside:', outside)
                             outside = parse_expr(outside, variables)
-                            print('outside (parsed)', outside)
                             result = polyop.poly_addition(inside, outside)
                         elif expression[left - 2] == ' ' and expression[right + 1] != ' ':
                             if expression[left - 3] == '-':
                                 inside = polyop.poly_scalar_multiplication(inside, -1.0)
-                            print('inside (after negative check):', inside)
                             multiplier_end = expression.find(' ', right)
                             if multiplier_end == -1:
                                 multiplier_end = len(expression)
                             multiplier = expression[right + 1:multiplier_end]
-                            print('multiplier:', multiplier)
                             multiplier = parse_expr(multiplier, variables)
-                            print('multiplier (parsed):', multiplier)
                             inside = polyop.poly_poly_multiplication(inside, multiplier)
-                            print('multiplied inside:', inside)
                             if multiplier_end == len(expression):
                                 outside = expression[0:left - 4]
                             else:
                                 outside = expression[0:left - 4] + expression[multiplier_end:len(expression)]
-                            print('outside:', outside)
                             outside = parse_expr(outside, variables)
-                            print('outside (parsed)', outside)
                             result = polyop.poly_addition(inside, outside)
                         elif expression[left - 2] != ' ' and expression[right + 1] == ' ':
                             multiplier_start = expression.rfind(' ', 0, left - 1)
@@ -203,19 +286,14 @@ def parse_expr(expression, variables):
                             else:
                                 multiplier_start -= 1
                             multiplier = expression[multiplier_start:left - 1]
-                            print('multiplier:', multiplier)
                             multiplier = parse_expr(multiplier, variables)
-                            print('multiplier (parsed):', multiplier)
                             inside = polyop.poly_poly_multiplication(inside, multiplier)
-                            print('multiplied inside:', inside)
                             if multiplier_start == 0:
-                                result = inside
+                                outside = expression[right + 1: len(expression)]
                             else:
                                 outside = expression[0:multiplier_start - 1] + expression[right + 1: len(expression)]
-                                print('outside:', outside)
-                                outside = parse_expr(outside, variables)
-                                print('outside (parsed)', outside)
-                                result = polyop.poly_addition(inside, outside)
+                            outside = parse_expr(outside, variables)
+                            result = polyop.poly_addition(inside, outside)
                         elif expression[left - 2] != ' ' and expression[right + 1] != ' ':
                             multiplier_left_start = expression.rfind(' ', 0, left - 1)
                             if multiplier_left_start == -1:
@@ -227,65 +305,31 @@ def parse_expr(expression, variables):
                                 multiplier_right_end = len(expression)
                             multiplier_left = expression[multiplier_left_start:left - 1]
                             multiplier_right = expression[right + 1:multiplier_right_end]
-                            print('left multiplier:', multiplier_left)
-                            print('right multiplier:', multiplier_right)
                             multiplier_left = parse_expr(multiplier_left, variables)
                             multiplier_right = parse_expr(multiplier_right, variables)
-                            print('left multiplier (parsed):', multiplier_left)
-                            print('right multiplier (parsed):', multiplier_right)
                             inside = polyop.poly_poly_multiplication(inside, multiplier_left)
                             inside = polyop.poly_poly_multiplication(inside, multiplier_right)
-                            print('multiplied inside:', inside)
                             if multiplier_left_start == 0 and multiplier_right_end == len(expression):
                                 result = inside
                             elif multiplier_left_start != 0 and multiplier_right_end == len(expression):
                                 outside = expression[0:multiplier_left_start - 1]
-                                print('outside:', outside)
                                 outside = parse_expr(outside, variables)
-                                print('outside (parsed):', outside)
                                 result = polyop.poly_addition(inside, outside)
                             elif multiplier_left_start == 0 and multiplier_right_end != len(expression):
                                 outside = expression[multiplier_right_end:len(expression)]
-                                print('outside:', outside)
                                 outside = parse_expr(outside, variables)
-                                print('outside (parsed)', outside)
                                 result = polyop.poly_addition(inside, outside)
                             elif multiplier_left_start != 0 and multiplier_right_end != len(expression):
                                 outside = expression[0:multiplier_left_start - 1] + expression[multiplier_right_end:len(expression)]
-                                print('outside:', outside)
-                                outside = parse_expr(outside, variables)
-                                print('outside (parsed)', outside)
                                 result = polyop.poly_addition(inside, outside)
 
             i -= 1
     else:
-        print('no parentheses')
         result = parse_np(expression, variables)
-    print("returning", result)
     return result
 
 
-expr = "x^2 - x(5x + x(5x^2 + 2)) + 5"
+expr = "5x + x(x(x + 1) + 5)(x + 2)x^2 + 5"
 var = ['x', 'y', 'z']
 
 print('final result:', parse_expr(expr, var))
-
-# TODO: add final case for multipliers (when the parenthesis set is at neither the start or end of the expression)
-# TODO: recursive function for multiplied parentheses
-
-# Code snippet for multiplied parentheses
-
-# elif left - 2 == paren_indices[i - 1][1]:
-#     print('multiplied parentheses')
-#     multiplier_left = paren_indices[i - 1][0] + 1
-#     multiplier_right = paren_indices[i - 1][1]
-#     multiplier = expression[multiplier_left:multiplier_right]
-#     print('multiplier:', multiplier)
-#     multiplier = parse_expr(multiplier, variables)
-#     print('multiplier (parsed):', multiplier)
-#     inside = polyop.poly_poly_multiplication(inside, multiplier)
-#     print('multiplied inside:', inside)
-#     if multiplier_left == 0:
-#         result = inside
-#     else:
-#         outside = expression[0:m]
