@@ -4,7 +4,6 @@ import sys
 sys.path.insert(0, '../')
 
 import casgui.windowclass as wc
-from polyutil import polyoperations as polyop
 
 
 def gen_gui():

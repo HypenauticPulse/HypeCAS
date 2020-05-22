@@ -1,5 +1,4 @@
 import tkinter as tk
-import sys
 from polynomials.Polynomial import Polynomial
 from polyutil import polyconvert as polycon, polyoperations as polyop
 
@@ -38,10 +37,10 @@ class GenOperationWindow:
         frm_win_main.rowconfigure([0, 1, 2, 3], minsize=50, weight=1)
         frm_win_main.columnconfigure([0, 1, 2, 3, 4], minsize=50, weight=1)
 
-        lbl_first = tk.Label(master=frm_win_main, text="First polynomial:")
+        lbl_first = tk.Label(master=frm_win_main, text="First polynomials:")
         lbl_first.grid(row=1, column=0)
 
-        lbl_second = tk.Label(master=frm_win_main, text="Second polynomial:")
+        lbl_second = tk.Label(master=frm_win_main, text="Second polynomials:")
         lbl_second.grid(row=1, column=2)
 
         ent_first = tk.Entry(master=frm_win_main)
@@ -91,10 +90,10 @@ class GenOperationWindow:
         frm_win_main.rowconfigure([0, 1, 2, 3], minsize=50, weight=1)
         frm_win_main.columnconfigure([0, 1, 2, 3, 4], minsize=50, weight=1)
 
-        lbl_first = tk.Label(master=frm_win_main, text="First polynomial:")
+        lbl_first = tk.Label(master=frm_win_main, text="First polynomials:")
         lbl_first.grid(row=1, column=0)
 
-        lbl_second = tk.Label(master=frm_win_main, text="Second polynomial:")
+        lbl_second = tk.Label(master=frm_win_main, text="Second polynomials:")
         lbl_second.grid(row=1, column=2)
 
         ent_first = tk.Entry(master=frm_win_main)
