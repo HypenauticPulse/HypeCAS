@@ -69,17 +69,17 @@ class Polynomial(Expression):
         trigger = 0
         while not trigger:
             out = []
-            zerocount = 0
+            zero_count = 0
             for i in range(start, end):
                 out.append(self.evaluate(i))
             for j in range(len(out) - 1):
                 if out[j] == 0.0:
                     zeros.append(j + start)
-                    zerocount += 1
+                    zero_count += 1
                 elif out[j] > 0 and out[j + 1] < 0 or out[j] < 0 and out[j + 1] > 0:
                     guesses.append(j + start + 1 / 2)
-                    zerocount += 1
-            if zerocount == self.degree:
+                    zero_count += 1
+            if zero_count == self.degree:
                 trigger = 1
             else:
                 start *= 10
@@ -110,13 +110,13 @@ class Polynomial(Expression):
         return temp
 
     @staticmethod
-    def indef_integral(expr, initialinput, initialvalue):
+    def indef_integral(expr, initial_input, initial_value):
         temp = []
         for i in expr:
             temp.append([i[0] / (i[1] + 1), i[1] + 1])
-        constant = initialvalue
+        constant = initial_value
         for i in temp:
-            constant += i[0] * initialinput ** i[1]
+            constant += i[0] * initial_input ** i[1]
         temp.append([constant, 0])
         return temp
 

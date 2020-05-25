@@ -54,9 +54,7 @@ def poly_find_coefficient(poly, power):
         if poly[i][1] == power:
             coeff = poly[i][0]
             found = 1
-            i += 1
-        else:
-            i += 1
+        i += 1
 
     return coeff
 
@@ -133,11 +131,9 @@ def poly_poly_division(poly1, poly2):
         remainder = poly1
         divisordegree = poly_degree(poly2)
         divisorlc = poly_leading_coeff(poly2)
-        i = 0
         while poly_degree(remainder) >= divisordegree:
             s = [poly_leading_coeff(remainder) / divisorlc, poly_degree(remainder) - divisordegree]
             quotient.append(s)
             remainder = poly_subtraction(remainder, poly_poly_multiplication([s], poly2))
             remainder = poly_remove_zeros(remainder)
-            i += 1
         return quotient, remainder

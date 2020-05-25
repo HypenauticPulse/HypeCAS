@@ -11,3 +11,12 @@ class MultivariatePolynomial(Expression):
 
     def gen_array(self):
         return self.parse_expr(self.expr_string, self.variables)
+
+    def evaluate(self, inputval):
+        result = 0
+        for i in self.expr_array:
+            term = i[0]
+            for j in range(len(i[1])):
+                term *= inputval[j] ** i[1][j]
+            result += term
+        return result
