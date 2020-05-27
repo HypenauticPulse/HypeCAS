@@ -1,13 +1,12 @@
 from polynomials.MultivariatePolynomial import MultivariatePolynomial as MvP
 from polynomials.LinearMultivariatePolynomial import LinearMultivariatePolynomial as LMvP
-from polyutils import polyoperations as polyop
+from polyutils import polyoperations as polyop, polyconversion as polycon
 
-a = 'x + 9y - 15z + 5'
-var = ['x', 'y', 'z']
+a = '9x^2y + 6xy^2 - 5xy + 5'
+var = ['x', 'y']
 
-test = LMvP(a, var)
+test = MvP(a, var)
 print(test.expr_array)
-print(polyop.poly_leading_coeff(test.expr_array))
-print(polyop.poly_find_coefficient(test.expr_array, [0, 2, 0]))
-
-print(test.evaluate([1, 2, 1]))
+integral = polyop.pr_definite_integral(test.expr_array, test.variables, 'y', 1, 5)
+print(integral)
+print(polycon.poly_conversion_string(integral, var))

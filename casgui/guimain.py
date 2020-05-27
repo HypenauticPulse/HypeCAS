@@ -1,9 +1,8 @@
 import tkinter as tk
 import sys
+import casgui.windowclass as wc
 
 sys.path.insert(0, '../')
-
-import casgui.windowclass as wc
 
 
 def gen_gui():

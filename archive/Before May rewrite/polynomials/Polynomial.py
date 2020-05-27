@@ -129,7 +129,6 @@ class Polynomial(Expression):
         endval = 0
         for i in temp:
             startval += i[0] * (start ** i[1])
-        for i in temp:
             endval += i[0] * (end ** i[1])
         return endval - startval
 

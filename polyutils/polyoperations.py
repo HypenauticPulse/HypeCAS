@@ -148,3 +148,108 @@ def poly_poly_division(poly1, poly2):
         quotient.append(s)
         remainder = poly_subtraction(remainder, poly_poly_multiplication([s], poly2))
     return quotient, remainder
+
+
+def partial_pr_derivative(poly, variables, wrt):
+    var_index = -1
+    for i in range(len(variables)):
+        if wrt == variables[i]:
+            var_index = i
+
+    if var_index >= 0:
+        derivative = []
+        for j in poly:
+            if j[1][var_index] != 0:
+                power = []
+                for k in range(len(j[1])):
+                    if k == var_index:
+                        power.append(j[1][k] - 1)
+                    else:
+                        power.append(j[1][k])
+                derivative.append([j[0] * j[1][var_index], power])
+    else:
+        raise TypeError("Invalid variable to differentiate with respect to.")
+    return derivative
+
+
+def pr_indef_integral(poly, variables, wrt, initial_input, initial_value):
+    var_index = -1
+    for i in range(len(variables)):
+        print(variables[i])
+        if wrt == variables[i]:
+            var_index = i
+
+    if var_index >= 0:
+        primitive = []
+        for j in poly:
+            power = []
+            for k in range(len(j[1])):
+                if k == var_index:
+                    power.append(j[1][k] + 1)
+                else:
+                    power.append(j[1][k])
+            primitive.append([j[0] / (j[1][var_index] + 1), power])
+        constant = initial_value
+        for j in primitive:
+            term = j[0]
+            for k in range(len(j[1])):
+                term *= initial_input[k] ** j[1][k]
+            constant -= term
+        zero = []
+        for _ in range(len(poly[0][1])):
+            zero.append(0.0)
+        primitive.append([constant, zero])
+    else:
+        raise TypeError("Invalid variable to integrate with respect to.")
+    return primitive
+
+
+def pr_definite_integral(poly, variables, wrt, start, end):
+    var_index = -1
+    for i in range(len(variables)):
+        if wrt == variables[i]:
+            var_index = i
+
+    if var_index >= 0:
+        primitive = []
+        for j in poly:
+            power = []
+            for k in range(len(j[1])):
+                if k == var_index:
+                    power.append(j[1][k] + 1)
+                else:
+                    power.append(j[1][k])
+            primitive.append([j[0] / (j[1][var_index] + 1), power])
+        start_primitive = []
+        end_primitive = []
+        for j in primitive:
+            power = []
+            for k in range(len(j[1])):
+                if k == var_index:
+                    power.append(0.0)
+                else:
+                    power.append(j[1][k])
+            start_primitive.append([j[0] * (start ** j[1][var_index]), power])
+            end_primitive.append([j[0] * (end ** j[1][var_index]), power])
+        result = poly_subtraction(end_primitive, start_primitive)
+        if len(result) == 1:
+            result = result[0][0]
+    else:
+        raise TypeError("Invalid variable to integrate with respect to.")
+    return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
