@@ -25,6 +25,7 @@
       <w>lefttemp</w>
       <w>lhsarray</w>
       <w>lparen</w>
+      <w>matop</w>
       <w>maxima</w>
       <w>minima</w>
       <w>multiplyend</w>
@@ -42,6 +43,7 @@
       <w>rightequations</w>
       <w>righttemp</w>
       <w>rparen</w>
+      <w>rref</w>
       <w>tempstring</w>
       <w>toret</w>
       <w>univariate</w>
