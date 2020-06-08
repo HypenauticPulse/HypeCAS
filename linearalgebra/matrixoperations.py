@@ -17,7 +17,10 @@ def ero_multiply_add_row(row_a, row_b, scalar, aug_mat):
 def rref(aug_mat):
     temp = []
     for i in aug_mat:
-        temp.append(i)
+        temp_row = []
+        for j in range(len(i)):
+            temp_row.append(i[j])
+        temp.append(temp_row)
 
     temp = swap_zero_pivots(temp)
 
@@ -65,7 +68,10 @@ def rref(aug_mat):
 def echelon_form(aug_mat):
     temp = []
     for i in aug_mat:
-        temp.append(i)
+        temp_row = []
+        for j in range(len(i)):
+            temp_row.append(i[j])
+        temp.append(temp_row)
 
     temp = swap_zero_pivots(temp)
 
@@ -101,7 +107,8 @@ def print_matrix(matrix):
 def matrix_add(matrix_a, matrix_b):
     if len(matrix_a) != len(matrix_b) or len(matrix_a[0]) != len(matrix_b[0]):
         raise ValueError(
-            "Dimension mismatch for addition between {}x{} and {}x{} matrices.".format(len(matrix_a), len(matrix_a[0]), len(matrix_b), len(matrix_b[0])))
+            "Dimension mismatch for addition between {}x{} and {}x{} matrices.".format(len(matrix_a), len(matrix_a[0]),
+                                                                                       len(matrix_b), len(matrix_b[0])))
     else:
         result = []
         for i in range(len(matrix_a)):
@@ -115,7 +122,10 @@ def matrix_add(matrix_a, matrix_b):
 def matrix_sub(matrix_a, matrix_b):
     if len(matrix_a) != len(matrix_b) or len(matrix_a[0]) != len(matrix_b[0]):
         raise ValueError(
-            "Dimension mismatch for subtraction between {}x{} and {}x{} matrices.".format(len(matrix_a), len(matrix_a[0]), len(matrix_b), len(matrix_b[0])))
+            "Dimension mismatch for subtraction between {}x{} and {}x{} matrices.".format(len(matrix_a),
+                                                                                          len(matrix_a[0]),
+                                                                                          len(matrix_b),
+                                                                                          len(matrix_b[0])))
     else:
         temp = []
         for i in range(len(matrix_a)):
@@ -140,7 +150,10 @@ def matrix_scalar_multiply(matrix, scalar):
 def matrix_multiplication(matrix_a, matrix_b):
     if len(matrix_a) != len(matrix_b[0]) or len(matrix_a[0]) != len(matrix_b):
         raise ValueError(
-            "Dimension mismatch for multiplication between {}x{} and {}x{} matrices.".format(len(matrix_a), len(matrix_a[0]), len(matrix_b), len(matrix_b[0])))
+            "Dimension mismatch for multiplication between {}x{} and {}x{} matrices.".format(len(matrix_a),
+                                                                                             len(matrix_a[0]),
+                                                                                             len(matrix_b),
+                                                                                             len(matrix_b[0])))
     else:
         result = []
         for i in range(len(matrix_a)):
@@ -157,7 +170,9 @@ def matrix_multiplication(matrix_a, matrix_b):
 
 def create_minor(matrix, r_row, r_col):
     if not r_row <= len(matrix) or not r_col <= len(matrix[0]):
-        raise ValueError("Invalid row, {}, or column, {}, to remove from an {}x{} matrix".format(r_row, r_col, len(matrix), len(matrix[0])))
+        raise ValueError(
+            "Invalid row, {}, or column, {}, to remove from an {}x{} matrix".format(r_row, r_col, len(matrix),
+                                                                                    len(matrix[0])))
     else:
         temp = []
         for i in range(len(matrix)):
@@ -186,7 +201,10 @@ def determinant(matrix):
 def swap_zero_pivots(matrix):
     temp = []
     for i in matrix:
-        temp.append(i)
+        temp_row = []
+        for j in range(len(i)):
+            temp_row.append(i[j])
+        temp.append(temp_row)
 
     for i in range(len(temp)):
         if temp[i][i] == 0:
@@ -209,8 +227,10 @@ def lu_decomposition_upper(matrix):
     else:
         temp = []
         for i in matrix:
-            temp.append(i)
-
+            temp_row = []
+            for j in range(len(i)):
+                temp_row.append(i[j])
+            temp.append(temp_row)
         for i in range(len(temp)):
             j = i
             trigger = 0
@@ -224,10 +244,58 @@ def lu_decomposition_upper(matrix):
                 for j in range(i + 1, len(temp)):
                     if temp[j][pivot] != 0:
                         ero_multiply_add_row(i, j, - temp[j][pivot] / temp[i][pivot], temp)
-
         for i in range(len(temp)):
             for j in range(len(temp[i])):
                 if temp[i][j] == -0.0:
                     temp[i][j] = 0.0
+    return temp
 
+
+def invert(matrix):
+    if len(matrix) != len(matrix[0]):
+        raise ValueError("Only square matrices can be inverted")
+    else:
+        det = determinant(matrix)
+        if det == 0:
+            raise ValueError("This matrix is singular since the determinant is zero")
+        else:
+            temp = []
+            for i in range(len(matrix)):
+                temp_row = []
+                for j in range(len(matrix[i])):
+                    temp_row.insert(j, matrix[i][j])
+                    if i == j:
+                        temp_row.append(1)
+                    else:
+                        temp_row.append(0)
+                temp.append(temp_row)
+
+            temp_rref = rref(temp)
+            inverse = []
+            for i in range(len(matrix)):
+                inverse_row = []
+                for j in range(len(matrix[i])):
+                    inverse_row.append(temp_rref[i][j + len(matrix[0])])
+                inverse.append(inverse_row)
+
+            return inverse
+
+
+def transpose(matrix):
+    temp = []
+    for i in range(len(matrix)):
+        temp_row = []
+        for j in range(len(matrix[i])):
+            temp_row.append(matrix[j][i])
+        temp.append(temp_row)
+    return temp
+
+
+def anti_transpose(matrix):
+    temp = []
+    for i in range(len(matrix)):
+        temp_row = []
+        for j in range(len(matrix[i])):
+            temp_row.append(matrix[len(matrix) - j - 1][len(matrix) - i - 1])
+        temp.append(temp_row)
     return temp

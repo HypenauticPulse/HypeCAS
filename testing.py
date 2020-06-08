@@ -6,8 +6,10 @@ from polyutils import polyoperations as polyop, polyconversion as polycon
 mat_a = [[1, 3, 5], [0, 5, 1], [6, 5, 0]]
 mat_b = [[4, 5], [6, 7]]
 
-print(matop.determinant(mat_b))
-
+matop.print_matrix(mat_a)
+print()
+transpose = matop.transpose(mat_a)
+anti_transpose = matop.anti_transpose(mat_a)
 # eq1 = 'x + 2y + 3z = 0'
 # eq2 = '4x + 5y + 6z = 0'
 # eq3 = '7x + 8y + 9z = 0'
